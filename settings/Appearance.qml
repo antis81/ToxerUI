@@ -133,4 +133,14 @@ Column {
             Style.lightTheme = checked;
         }
     }
+
+    SpinBox {
+        prefix: qsTr("Font size: ")
+        suffix: " pt"
+        minimumValue: 6
+        value: Style.fontPointSize
+        onValueChanged: {
+            Style.fontPointSize = value;
+        }
+    }
 }
