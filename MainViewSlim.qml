@@ -132,7 +132,7 @@ Base.MainViewBase {
                     }
                 }
 
-                TextField {
+                Controls.TextInput {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     Layout.margins: 1

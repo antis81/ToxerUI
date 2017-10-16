@@ -26,7 +26,6 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.4
 
 import "base" as Base
 import "controls" as Controls
@@ -37,7 +36,7 @@ Base.View {
     ColumnLayout {
         anchors.fill: parent
 
-        TextField {
+        Controls.TextInput {
             Layout.fillWidth: true
             placeholderText: qsTr("Enter your friend's Tox-ID…")
         }

@@ -25,8 +25,7 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.4
-import QtQuick.Controls.Styles 1.4
+import QtQuick.Controls 2.2
 
 import com.toxer.settings 1.0
 
@@ -49,6 +48,7 @@ Column {
         ComboBox {
             width: parent.width
 
+            textRole: "text"
             model: ListModel {
                 ListElement {
                     text: qsTr("Single-Window layout")
@@ -121,23 +121,21 @@ Column {
     }
 
     CheckBox {
-        style: CheckBoxStyle {
-            label: Controls.Text {
-                text: qsTr("Light Theme")
-            }
+        text: qsTr("Light Theme")
+        contentItem: Controls.Text {
+            leftPadding: parent.indicator.width + 4
+            text: parent.text
+            verticalAlignment: Text.AlignVCenter
         }
-
         checked: Style.lightTheme
-
         onCheckedChanged: {
             Style.lightTheme = checked;
         }
     }
 
     SpinBox {
-        prefix: qsTr("Font size: ")
-        suffix: " pt"
-        minimumValue: 6
+        textFromValue: function() { return qsTr("Font size: %1 pt").arg(value); }
+        from: 6
         value: Style.fontPointSize
         onValueChanged: {
             Style.fontPointSize = value;
