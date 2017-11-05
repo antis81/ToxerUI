@@ -24,8 +24,9 @@
  * IN THE SOFTWARE.
  */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick 2.9
+import QtQuick.Layouts 1.3
+import QtGraphicalEffects 1.0
 
 import "." // QTBUG-34418
 import "controls" as Controls
@@ -33,8 +34,8 @@ import "controls" as Controls
 Item {
     id: root
 
-    width: 200
-    height: 36
+    implicitWidth: 200
+    implicitHeight: infoColumn.height
     clip: true
 
     property alias name: name
@@ -44,31 +45,61 @@ Item {
 
     RowLayout {
         anchors.fill: parent
-
         spacing: 0
 
-        Image {
-            id: avatar
-
-            Layout.alignment: Qt.AlignLeading
+        Item {
+            id: avatarItem
             Layout.fillHeight: true
-            Layout.margins: 2
-            width: height
+            implicitWidth: height + statusLight.width
 
-            fillMode: Image.PreserveAspectFit
-            sourceSize: Qt.size(width, height)
+            Image {
+                id: avatar
+
+                visible: false
+                height: parent.height
+                width: height
+                fillMode: Image.PreserveAspectFit
+                sourceSize: Qt.size(width, height)
+            }
+
+            Rectangle {
+                id: avatarMask
+
+                anchors.fill: avatar
+                color: Style.color.alternateBase
+                radius: width / 2
+                OpacityMask {
+                    anchors.fill: parent
+                    source: avatar
+                    maskSource: avatarMask
+                }
+            }
+
+            Image {
+                id: statusLight
+
+                visible: true
+                height: Math.max(avatar.height * 0.33, 10)
+                width: height
+                anchors.bottom: avatar.bottom
+                anchors.right: avatar.right
+                anchors.rightMargin: -(height / 2)
+                fillMode: Image.PreserveAspectFit
+                sourceSize: Qt.size(width, height)
+            }
         }
 
         Column {
+            id: infoColumn
+
             Layout.minimumWidth: 20
-            Layout.minimumHeight: 12
             Layout.fillWidth: true
+            Layout.alignment: Qt.AlignTop
 
             Controls.Text {
                 id: name
 
                 width: parent.width
-
                 font.bold: true
                 text: "<alias>"
             }
@@ -77,20 +108,8 @@ Item {
                 id: statusMessage
 
                 width: parent.width
-
                 text: "<status_message>"
             }
-        }
-
-        Image {
-            id: statusLight
-
-            height: 10
-            width: height
-            Layout.margins: 3
-            Layout.alignment: Qt.AlignCenter
-            sourceSize: Qt.size(width, height)
-            source: Style.icon.offline
         }
     }
 }

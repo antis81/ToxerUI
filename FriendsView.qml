@@ -24,7 +24,7 @@
  * IN THE SOFTWARE.
  */
 
-import QtQuick 2.0
+import QtQuick 2.9
 
 import com.tox.qmlcomponents 1.0
 import com.tox.qmltypes 1.0
@@ -64,11 +64,10 @@ Base.View {
         // TODO: initialize model by toxFriends.friends()
         model: toxFriends.count()
 
-        spacing: compactMode ? 2 : 8
+        spacing: compactMode ? 1 : 2
         delegate: FriendDelegate {
             id: friendDelegate
 
-            height: friendsView.compactMode ? 22 : 36
             width: friendsView.width
 
             name.text: toxFriends.name(modelData)
@@ -137,9 +136,8 @@ Base.View {
         highlight: Rectangle {
             width: friendsView.currentItem.width
             height: friendsView.currentItem.height
-            border.color: "#80FFFFFF";
-            color: Qt.darker("#33000000", 1.2)
-            radius: 5
+            border.color: "#80FFFFFF"
+            color: "#33000000"
             y: friendsView.currentItem.y
             z: friendsView.currentItem.z + 1
 
