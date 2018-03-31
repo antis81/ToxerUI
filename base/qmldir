@@ -1,0 +1,6 @@
+module base
+
+MainViewBase 1.0 MainViewBase.qml
+Page 1.0 Page.qml
+View 1.0 View.qml
+ViewLoader 1.0 ViewLoader.qml

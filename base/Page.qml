@@ -25,23 +25,26 @@
  */
 
 import QtQuick 2.7
+import QtQuick.Controls 2.2 as QC2
 
-import ".." // QTBUG-34418
+import style 1.0
 
-Rectangle {
-    id: root
-
+QC2.Page {
     width: 100
     height: 100
+    focus: true
 
-    color: Style.color.base
+    property alias color: bg.color
 
-    readonly property alias appQuitShortcut: appQuitShortcut
-
-    Shortcut {
+    readonly property Shortcut appQuitShortcut: Shortcut {
         id: appQuitShortcut
         sequence: StandardKey.Quit
         context: Qt.ApplicationShortcut
         onActivated: Qt.quit()
+    }
+
+    background: Rectangle {
+        id: bg
+        color: Style.color.base
     }
 }

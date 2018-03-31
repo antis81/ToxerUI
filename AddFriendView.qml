@@ -1,7 +1,7 @@
 /*
  * This file is part of the Toxer application, a Tox messenger client.
  *
- * Copyright (c) 2017 Nils Fenner <nils@macgitver.org>
+ * Copyright (c) 2017-2018 Nils Fenner <nils@macgitver.org>
  *
  * This software is licensed under the terms of the MIT license:
  *
@@ -27,8 +27,10 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import "base" as Base
-import "controls" as Controls
+import com.tox.qmlcomponents 1.0
+
+import base 1.0 as Base
+import controls 1.0 as Controls
 
 Base.View {
     id: root

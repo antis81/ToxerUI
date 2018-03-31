@@ -29,8 +29,9 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 
-import "base" as Base
-import "controls" as Controls
+import base 1.0 as Base
+import controls 1.0 as Controls
+import style 1.0
 
 Base.MainViewBase {
     id: root
@@ -176,7 +177,7 @@ Base.MainViewBase {
             }
         }
 
-        ViewLoader {
+        Base.ViewLoader {
             id: viewLoader
 
             Layout.fillWidth: true

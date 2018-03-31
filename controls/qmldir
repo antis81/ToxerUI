@@ -1,0 +1,7 @@
+module controls
+
+FlatButton 1.0 FlatButton.qml
+Slider 1.0 Slider.qml
+TextEdit 1.0 TextEdit.qml
+TextInput 1.0 TextInput.qml
+Text 1.0 Text.qml

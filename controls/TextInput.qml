@@ -26,8 +26,8 @@
 
 import QtQuick 2.0
 
-import "." as Controls
-import ".."
+import controls 1.0 as Controls
+import style 1.0
 
 
 TextInput {

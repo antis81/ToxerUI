@@ -28,8 +28,8 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
-import "." // QTBUG-34418
-import "controls" as Controls
+import controls 1.0 as Controls
+import style 1.0
 
 Item {
     id: root

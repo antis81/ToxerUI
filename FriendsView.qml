@@ -29,8 +29,9 @@ import QtQuick 2.9
 import com.tox.qmlcomponents 1.0
 import com.tox.qmltypes 1.0
 
-import "base" as Base
-import "controls" as Controls
+import base 1.0 as Base
+import controls 1.0 as Controls
+import style 1.0
 
 Base.View {
     id : root

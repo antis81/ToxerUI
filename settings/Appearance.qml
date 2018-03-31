@@ -29,8 +29,8 @@ import QtQuick.Controls 2.2
 
 import com.toxer.settings 1.0
 
-import ".." // QTBUG-34418
-import "../controls" as Controls
+import style 1.0
+import controls 1.0 as Controls
 
 Column {
     id: root

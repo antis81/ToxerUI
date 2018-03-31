@@ -28,9 +28,10 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.0
 
-import "animations" as Animations
-import "base" as Base
-import "controls" as Controls
+import animations 1.0 as Animations
+import base 1.0 as Base
+import controls 1.0 as Controls
+import style 1.0
 
 Base.Page {
     id: root

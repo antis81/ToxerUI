@@ -30,9 +30,8 @@ import QtGraphicalEffects 1.0
 
 import com.tox.qmlcomponents 1.0
 
-import "." // QTBUG-34418
-import "controls" as Controls
-
+import controls 1.0 as Controls
+import style 1.0
 
 RowLayout {
     id: root

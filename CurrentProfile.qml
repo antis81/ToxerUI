@@ -4,6 +4,8 @@ import QtQuick.Layouts 1.1
 import com.tox.qmlcomponents 1.0
 import com.tox.qmltypes 1.0
 
+import style 1.0
+
 Rectangle {
     id: root
 

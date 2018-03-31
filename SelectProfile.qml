@@ -28,7 +28,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.1
 
-import "controls" as Controls
+import controls 1.0 as Controls
 
 ColumnLayout {
     id: root

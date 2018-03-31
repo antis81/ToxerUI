@@ -30,8 +30,8 @@ import QtQuick.Layouts 1.1
 
 import com.tox.qmlcomponents 1.0
 
-import "base" as Base
-import "controls" as Controls
+import base 1.0 as Base
+import controls 1.0 as Controls
 
 Base.View {
     id: root

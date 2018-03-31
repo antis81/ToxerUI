@@ -2,8 +2,6 @@
     <qresource prefix="/qml">
         <file>MainViewSlim.qml</file>
         <file>FriendDelegate.qml</file>
-        <file>qmldir</file>
-        <file>Style.qml</file>
         <file>animations/Ringing.qml</file>
         <file>FriendsView.qml</file>
         <file>Profiles.qml</file>
@@ -24,7 +22,13 @@
         <file>base/Page.qml</file>
         <file>base/View.qml</file>
         <file>CurrentProfile.qml</file>
-        <file>ViewLoader.qml</file>
+        <file>base/ViewLoader.qml</file>
         <file>controls/TextEdit.qml</file>
+        <file>animations/qmldir</file>
+        <file>base/qmldir</file>
+        <file>controls/qmldir</file>
+        <file>settings/qmldir</file>
+        <file>style/qmldir</file>
+        <file>style/Style.qml</file>
     </qresource>
 </RCC>

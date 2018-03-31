@@ -1,6 +1,6 @@
 import QtQuick 2.7
 
-import ".." // QTBUG-34418
+import style 1.0
 
 Text {
     renderType: Text.NativeRendering

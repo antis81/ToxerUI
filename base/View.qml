@@ -25,13 +25,14 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.2 as QC2
 
-import ".."
-
-Item {
+QC2.Page {
     id: root
 
     property ViewLoader viewLoader: null
 
     signal closing
+
+    background: null
 }
