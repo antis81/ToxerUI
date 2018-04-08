@@ -28,6 +28,7 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
+import animations 1.0
 import controls 1.0 as Controls
 import style 1.0
 
@@ -36,12 +37,21 @@ Item {
 
     implicitWidth: 200
     implicitHeight: infoColumn.height
-    clip: true
 
     property alias name: name
     property alias avatar: avatar
     property alias statusMessage: statusMessage
     property alias statusLight: statusLight
+    property int unreadMessages: 0
+
+    Pulsing {
+        target: messageIndicator
+        properties: "spread"
+        from: 0.3
+        to: 0.75
+        loops: Animation.Infinite
+        running: messageIndicator.visible
+    }
 
     RowLayout {
         anchors.fill: parent
@@ -86,6 +96,17 @@ Item {
                 anchors.rightMargin: -(height / 2)
                 fillMode: Image.PreserveAspectFit
                 sourceSize: Qt.size(width, height)
+            }
+
+            Glow {
+                id: messageIndicator
+
+                visible: unreadMessages > 0
+                anchors.fill: statusLight
+                radius: 10
+                samples: 17
+                color: "#6a3"
+                source: statusLight
             }
         }
 

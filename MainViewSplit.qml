@@ -39,6 +39,8 @@ Base.MainViewBase {
     width: Math.min(600, Screen.width)
     height: Math.min(480, Screen.height)
 
+    focus: true
+
     ExclusiveGroup {
         id: mainToolButtons
 
@@ -55,6 +57,7 @@ Base.MainViewBase {
 
     SplitView {
         anchors.fill: parent
+        focus: true
 
         Item {
             id: layoutWrapper

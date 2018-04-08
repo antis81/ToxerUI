@@ -62,8 +62,7 @@ Base.View {
 
         anchors.fill: parent
 
-        // TODO: initialize model by toxFriends.friends()
-        model: toxFriends.count()
+        model: toxFriends.count
 
         spacing: compactMode ? 1 : 2
         delegate: FriendDelegate {
@@ -104,12 +103,16 @@ Base.View {
             }
 
             Connections {
-                // TODO: define the connections inside TFQ instead of delegate
                 target: toxFriends
                 onIsOnlineChanged: {
                     if (index === modelData) {
                         // TODO: get icon by connection state
                         statusLight.source = toxFriends.statusIcon(index);
+                    }
+                }
+                onMessage: {
+                    if (index === modelData) {
+                        unreadMessages++;
                     }
                 }
                 onStatusChanged: {

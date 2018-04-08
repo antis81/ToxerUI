@@ -30,5 +30,6 @@
         <file>settings/qmldir</file>
         <file>style/qmldir</file>
         <file>style/Style.qml</file>
+        <file>animations/Pulsing.qml</file>
     </qresource>
 </RCC>

@@ -117,7 +117,6 @@ Base.Page {
                     }
                 }
 
-                focus: false
                 highlightFollowsCurrentItem: false
                 highlight: Canvas {
                     width: pageSelector.currentItem.width +
