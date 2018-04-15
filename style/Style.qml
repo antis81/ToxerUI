@@ -1,7 +1,7 @@
 /*
  * This file is part of the Toxer application, a Tox messenger client.
  *
- * Copyright (c) 2017 Nils Fenner <nils@macgitver.org>
+ * Copyright (c) 2017-2018 Nils Fenner <nils@macgitver.org>
  *
  * This software is licensed under the terms of the MIT license:
  *
@@ -35,27 +35,27 @@ QtObject {
         return "qrc:/res/images/" + (lightTheme ? "light" : "dark")
     }
 
-    property QtObject color: QtObject {
+    readonly property QtObject color: QtObject {
         property color base: Qt.hsla(0.0, 0.0, 0.1)
         property color alternateBase: Qt.lighter(base, 1.6)
         property color text: lightTheme ? "#333333" : "#cccccc"
     }
 
-    property QtObject statusColor: QtObject {
+    readonly property QtObject statusColor: QtObject {
         property color disabled: "gray"
         property color enabled: "#80ff80"
         property color pending: "#bbbb80"
         property color active: "#ff8080"
     }
 
-    property QtObject userStatusColor: QtObject {
+    readonly property QtObject userStatusColor: QtObject {
         property color offline: "gray"
         property color online: "#80ff80"
         property color away: "#bbbb80"
         property color busy: "#ff8080"
     }
 
-    property QtObject icon: QtObject {
+    readonly property QtObject icon: QtObject {
         property url noAvatar: iconResource + "/contact.svg"
         property url offline: iconResource + "/dot_offline.svg"
         property url online: iconResource + "/dot_online.svg"
