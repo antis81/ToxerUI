@@ -1,7 +1,7 @@
 /*
  * This file is part of the Toxer application, a Tox messenger client.
  *
- * Copyright (c) 2017 Nils Fenner <nils@macgitver.org>
+ * Copyright (c) 2017-2018 Nils Fenner <nils@macgitver.org>
  *
  * This software is licensed under the terms of the MIT license:
  *
@@ -27,6 +27,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.0
+import QtGraphicalEffects 1.0
 
 import animations 1.0 as Animations
 import base 1.0 as Base
@@ -36,181 +37,172 @@ import style 1.0
 Base.Page {
     id: root
 
-    width: Math.min(600, Screen.width)
-    height: Math.min(400, Screen.height)
+    width: Math.min(400, Screen.width)
+    height: Math.min(600, Screen.height)
 
-    RowLayout {
-        id: pageLayout
+    Animations.Ringing {
+        target: logo
+        duration: 100
+        loops: 12
+        running: true
+    }
 
-        anchors.fill: parent
-        spacing: 0
+    footer: Column {
+        Controls.Text {
+            id: txtToxerVersion
 
-        ColumnLayout {
-            Layout.minimumWidth: 140
-            Layout.maximumWidth: 240
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+            text: Qt.application.name + " " + Qt.application.version
+        }
 
-            spacing: 0
+        Controls.Text {
+            id: txtToxcoreVersion
+            text: "Based on Tox " + Toxer.toxVersionString()
+        }
+    }
 
-            Item {
-                // spacer
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+    header: ColumnLayout {
+        id: headLayout
+
+        implicitHeight: 400
+        spacing: 52
+
+        Image {
+            id: logo
+
+            Layout.alignment: Qt.AlignCenter
+            Layout.preferredWidth: parent.width / 1.8
+            Layout.preferredHeight: Layout.preferredWidth
+            Layout.maximumWidth: 300
+            Layout.maximumHeight: Layout.maximumWidth
+            Layout.topMargin: headLayout.spacing
+
+            sourceSize: Qt.size(width, height)
+            source: "qrc:/res/images/dark/login_logo.svg"
+            cache: false
+        }
+
+        ListView {
+            id: pageSelector
+
+            property real spikeWidth: 26
+            property color highlightColor: {
+                var c = Style.color.base;
+                return Qt.hsla(c.hslHue + 0.5, 0.8,
+                               c.hslLightness + (c.hslLightness <= 0.5 ? 0.15 : -0.15));
             }
 
-            Image {
-                id: logo
+            implicitHeight: contentItem.childrenRect.height
+            implicitWidth: contentItem.childrenRect.width
+            Layout.alignment: Qt.AlignCenter
 
-                Layout.alignment: Qt.AlignCenter
-                Layout.preferredWidth: parent.width / 1.8
-                Layout.preferredHeight: Layout.preferredWidth
-                Layout.maximumWidth: 120
-                Layout.maximumHeight: Layout.maximumWidth
+            interactive: false
+            orientation: ListView.Horizontal
+            spacing: 6
 
-                sourceSize: Qt.size(width, height)
-                source: "qrc:/res/images/dark/login_logo.svg"
+            model: ListModel {
+                ListElement {
+                    name: qsTr("Start Profile")
+                    page: "SelectProfile.qml"
+                }
+                ListElement {
+                    name: qsTr("New Profile")
+                    page: "CreateProfile.qml"
+                }
+                ListElement {
+                    name: qsTr("Import Profile")
+                    page: ""
+                }
             }
 
-            Item {
-                // spacer
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-            }
+            delegate: Controls.Text {
+                font.pointSize: 10
+                height: paintedHeight + 36
+                width: implicitWidth + 36
 
-            ListView {
-                id: pageSelector
+                horizontalAlignment: Qt.AlignHCenter
+                verticalAlignment: Qt.AlignVCenter
+                text: name
 
-                property real spikeWidth: 36
-
-                Layout.fillWidth: true
-                height: 48 * count
-                spacing: 0
-                interactive: false
-
-                model: ListModel {
-                    ListElement {
-                        name: qsTr("Create Profile")
-                        page: "CreateProfile.qml"
-                    }
-                    ListElement {
-                        name: qsTr("Load Profile")
-                        page: "SelectProfile.qml"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        pageSelector.currentIndex = index
                     }
                 }
+            }
 
-                delegate: Text {
-                    height: font.pixelSize + 36
-                    width: pageSelector.width
-
-                    renderType: Text.NativeRendering
-                    horizontalAlignment: Qt.AlignHCenter
-                    verticalAlignment: Qt.AlignVCenter
-                    color: "#bbb"
-                    text: name
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            pageSelector.currentIndex = index
-                        }
-                    }
-                }
-
-                highlightFollowsCurrentItem: false
-                highlight: Canvas {
-                    width: pageSelector.currentItem.width +
-                           pageSelector.spikeWidth
+            highlightFollowsCurrentItem: false
+            highlight: Item {
+                Canvas {
+                    id: highlighter
+                    width: pageSelector.currentItem.width
                     height: pageSelector.currentItem.height
                     onPaint: {
-                        var bgColor = Qt.lighter(color, 1.8);
-                        var borderColor = "transparent";
+                        var spikeWidth = pageSelector.spikeWidth;
                         var cy = height / 2;
 
                         var ctx = getContext("2d");
                         ctx.save();
 
                         ctx.beginPath();
-                        ctx.moveTo(0,0);
-                        ctx.lineTo(width - pageSelector.spikeWidth,
-                                   ctx.lineWidth);
+                        ctx.moveTo(ctx.lineWidth, cy);
+                        ctx.lineTo(spikeWidth, ctx.lineWidth);
+                        ctx.lineTo(width - spikeWidth, ctx.lineWidth);
                         ctx.lineTo(width, cy);
-                        ctx.lineTo(width - pageSelector.spikeWidth,
-                                   height - ctx.lineWidth);
-                        ctx.strokeStyle = borderColor;
-                        ctx.lineTo(ctx.lineWidth, height - ctx.lineWidth);
-                        ctx.lineTo(ctx.lineWidth, ctx.lineWidth);
+                        ctx.lineTo(width - spikeWidth, height - ctx.lineWidth);
+                        ctx.lineTo(spikeWidth, height - ctx.lineWidth);
+                        ctx.lineTo(ctx.lineWidth, cy);
+                        ctx.strokeStyle = pageSelector.highlightColor;
                         ctx.stroke();
-                        var grd = ctx.createLinearGradient(0, 0, width * 0.8,
-                                                           0);
-                        grd.addColorStop(0, "transparent");
-                        grd.addColorStop(1, bgColor)
-                        ctx.fillStyle = grd;
+                        ctx.fillStyle = pageSelector.highlightColor;
                         ctx.fill();
 
                         ctx.restore();
                     }
 
-                    y: pageSelector.currentItem.y
+                    x: pageSelector.currentItem.x
 
-                    Behavior on y {
-                        NumberAnimation { duration: 140 }
+                    Behavior on x {
+                        SmoothedAnimation { duration: 180 }
                     }
                 }
 
-                onCurrentIndexChanged: {
-                    var item = model.get(currentIndex);
-                    pageLoader.setSource(item.page);
+                Glow {
+                    id: highlighter_effect
+                    anchors.fill: highlighter
+                    radius: 13
+                    samples: 17
+                    color: pageSelector.highlightColor;
+                    source: highlighter
                 }
 
-                Component.onCompleted: {
-                    currentIndex = 1
-                }
-            }
-
-            Column {
-                Layout.fillWidth: true
-
-                Text {
-                    id: txtToxerVersion
-
-                    width: parent.width
-
-                    renderType: Text.NativeRendering
-                    color: "#bbb"
-                    maximumLineCount: 1
-                    elide: Text.ElideRight
-                    text: Qt.application.name + " version " +
-                          Qt.application.version
-                }
-
-                Text {
-                    id: txtToxcoreVersion
-
-                    width: parent.width
-
-                    renderType: Text.NativeRendering
-                    color: "#bbb"
-                    maximumLineCount: 1
-                    elide: Text.ElideRight
-                    text: "Tox version " + Toxer.toxVersionString()
+                Animations.Pulsing {
+                    target: highlighter_effect
+                    properties: "spread"
+                    from: 0.1
+                    to: 0.3
+                    durationIn: 180
+                    durationOut: 300
+                    loops: Animation.Infinite
+                    running: true
                 }
             }
-        }
 
-        Loader {
-            id: pageLoader
+            onCurrentIndexChanged: {
+                var item = model.get(currentIndex);
+                pageLoader.source = item.page;
+            }
 
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.margins: 9
+            Component.onCompleted: {
+                currentIndex = 0
+            }
         }
+    }
 
-        Animations.Ringing {
-            target: logo
-            duration: 100
-            loops: 12
-            running: true
-        }
+    Loader {
+        id: pageLoader
+
+        anchors.fill: parent
+        anchors.margins: 9
     }
 }

@@ -68,13 +68,6 @@ ColumnLayout {
         spacing: 5
 
         Controls.FlatButton {
-            id: btnImport
-
-            padding: 15
-            text: qsTr("Import Profile")
-        }
-
-        Controls.FlatButton {
             id: btnStart
 
             Accessible.defaultButton: true
