@@ -1,13 +1,12 @@
-# Toxer: The Tox user interface which simply fits.
+# Toxer: A well scaling Tox user interface!
 
-Have you always wanted a Tox user interface, that simply scales to your device(s), while at the same time looks beautiful and smooth without compromising security? This is what Toxer aims at.
+This the Toxer desktop UI implementation. Toxer provides a Qt/QML basis to create gorgeous looking Tox applications.
 
-This repository contains a Toxer user interface - written in the awesome QML presentation language.
+The Toxer user interface is written in awesome QML presentation language.
 
-## Status: **! experimental !**
-**Please note our baby is just born and learning to walk!**
+![! WARNING: EXPERIMENTAL !](webres/experimental.png  "ToxerIsExperimental")
 
-If you have an idea and would like to help out, feel welcome!
+**Lots of features are still not implemented. Feel welcome to discuss and contribute your ideas!**
 
 ## Select an existing Tox profile or create a new one to start a Tox session.
 ![Toxer on LXQt](screenshots/start_screen.png)
@@ -26,7 +25,7 @@ If you have an idea and would like to help out, feel welcome!
 
 ## Downloads (binary releases)
 
-Currently Toxer can only be built from source. If you want to help out, please contact the community as written in the [Resources](#resources) section.
+Currently you build Toxer from source. If you want to help with packaging, please contact me as written in the [Resources](#resources) section.
 
 # License
 The Toxer user interface is freely usable under the terms of the MIT license. The licenses of the underlying libraries (e.g. Qt and toxcore) apply to these components.
