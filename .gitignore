@@ -1,4 +1,12 @@
+# generated directories
+ToxerCore/
+[Bb]uild/
+
+# generated files
 *.depends
+*.user*
 *.backup
 *.orig
 
+# libs
+lib/*/
