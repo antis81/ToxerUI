@@ -31,7 +31,6 @@
 #include <QScreen>
 #include <QThread>
 
-#include "Private/ToxProfile.h"
 #include "Settings.h"
 #include "Toxer.h"
 #include "ToxTypes.h"
@@ -63,11 +62,10 @@ int main(int argc, char *argv[]) {
         }
     });
 
-    QObject::connect(&toxer, &Toxer::reloadUi, [&view]()
+    QObject::connect(&toxer, &Toxer::profileChanged, [&toxer, &view]()
     {
-        const QUrl page = ToxProfilePrivate::current()
-                          ? Toxer::mainView()
-                          : Toxer::profileSelector();
+        const QUrl page = toxer.hasProfile() ? Toxer::mainView()
+                                             : Toxer::profileSelector();
 
         // important: let the event loop do the layout correctly
         QMetaObject::invokeMethod(&view, "setSource", Qt::QueuedConnection,
