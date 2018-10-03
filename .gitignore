@@ -1,6 +1,6 @@
 # generated directories
-ToxerCore/
 [Bb]uild/
+/ToxerCore*
 
 # generated files
 *.depends
