@@ -1,0 +1,44 @@
+name: toxer
+version: "1.0"
+summary: Toxer
+description: |
+  Toxer is a messaging client solution based on the Tox protocol.
+
+confinement: devmode
+
+apps:
+  toxer:
+    command: toxer
+
+parts:
+  sodium:
+    source-type: tar
+    source: https://github.com/jedisct1/libsodium/archive/1.0.16.tar.gz
+    plugin: autotools
+    build-packages:
+      - g++
+      - make
+
+  toxcore:
+    source-type: tar
+    source: https://github.com/TokTok/c-toxcore/archive/v0.2.7.tar.gz
+    plugin: cmake
+    configflags: ["-DCMAKE_BUILD_TYPE=Release",
+                  "-DBUILD_TOXAV=OFF",
+                  "-DBUILD_AV_TEST=OFF",
+                  "-DPKG_CONFIG_USE_CMAKE_PREFIX_PATH=1"]
+    build-packages:
+      - g++
+      - make
+    after: [sodium]
+
+  toxer:
+    source: ..
+#    source-type: tar
+#    source: https://gitlab.com/antis81/toxer-ui/-/archive/split-projects/toxer-ui-split-projects.tar.gz
+    plugin: cmake
+    configflags: ["-DCMAKE_BUILD_TYPE=Release"]
+    build-packages:
+      - g++
+      - make
+    after: [toxcore]
